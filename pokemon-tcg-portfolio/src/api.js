@@ -3,6 +3,7 @@ import { useEffect, useState, useCallback } from 'react';
 async function request(url, opts = {}) {
   const res = await fetch(url, opts);
   if (res.status === 204) return null;
+  if (res.status === 401 && !url.startsWith('/api/login')) window.dispatchEvent(new Event('auth-required'));
   const data = await res.json().catch(() => ({}));
   if (!res.ok) throw new Error(data.error || `Fout ${res.status}`);
   return data;
@@ -15,6 +16,8 @@ const json = (method, body) => ({
 });
 
 export const api = {
+  auth: () => request('/api/auth'),
+  login: (password) => request('/api/login', json('POST', { password })),
   portfolio: () => request('/api/portfolio'),
   status: () => request('/api/status'),
   refresh: () => request('/api/refresh', { method: 'POST' }),

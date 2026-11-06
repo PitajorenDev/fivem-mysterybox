@@ -5,6 +5,7 @@ import Portfolio from './pages/Portfolio.jsx';
 import Totals from './pages/Totals.jsx';
 import AddItems from './pages/AddItems.jsx';
 import ItemModal from './components/ItemModal.jsx';
+import Login from './Login.jsx';
 
 const ROUTES = {
   portfolio: { label: 'Portfolio', icon: '🗂️' },
@@ -51,7 +52,22 @@ function useTheme() {
   return [theme, () => setTheme((t) => NEXT_THEME[t] ?? 'auto')];
 }
 
+// Toont het inlogscherm als de server een wachtwoord vraagt
 export default function App() {
+  useTheme();
+  const [auth, setAuth] = useState(null); // null = laden, true = ok, false = inloggen
+  useEffect(() => {
+    api.auth().then((a) => setAuth(!a.required || a.ok)).catch(() => setAuth(true));
+    const need = () => setAuth(false);
+    window.addEventListener('auth-required', need);
+    return () => window.removeEventListener('auth-required', need);
+  }, []);
+  if (auth === null) return <div className="loading">Laden…</div>;
+  if (!auth) return <Login onLoggedIn={() => setAuth(true)} />;
+  return <Main />;
+}
+
+function Main() {
   const [theme, cycleTheme] = useTheme();
   const route = useHashRoute();
   const { data, live, updatedAt, error, setData } = usePortfolio();

@@ -1,0 +1,27 @@
+# Render Blueprint: zet de TCG Portfolio app online.
+# Render dashboard -> New -> Blueprint -> kies deze repo.
+services:
+  - type: web
+    name: tcg-portfolio
+    runtime: docker
+    rootDir: pokemon-tcg-portfolio
+    dockerfilePath: ./Dockerfile
+    plan: starter            # nodig voor een persistente schijf (je portfolio blijft bewaard)
+    region: frankfurt
+    healthCheckPath: /healthz
+    autoDeploy: true
+    disk:
+      name: tcg-data
+      mountPath: /data
+      sizeGB: 1
+    envVars:
+      - key: APP_PASSWORD     # wachtwoord om de app te openen
+        sync: false
+      - key: ANTHROPIC_API_KEY # voor foto-herkenning
+        sync: false
+      - key: SESSION_SECRET
+        generateValue: true
+      - key: PRICE_REFRESH_MINUTES
+        value: "30"
+      - key: PRICE_FIELD
+        value: trend

@@ -72,7 +72,23 @@ npm start                 # serveert app + API op http://localhost:3001
    - **Android (Chrome):** open het menu ⋮ en kies **App installeren** of **Toevoegen aan startscherm**.
 
 Daarna opent de app met een eigen icoon, op volledig scherm. Je pc moet wel aan staan en de server moet draaien.
-Wil je de app ook buiten je wifi gebruiken, host hem dan online (bv. Render of Railway, met een persistente schijf voor `data/`).
+Wil je dat niet, zet de app dan online (zie hieronder).
+
+### Online zetten (zonder pc, overal bereikbaar)
+
+De repo bevat een `render.yaml` (Render Blueprint) en een `Dockerfile`.
+
+1. Maak een account op https://render.com en koppel je GitHub.
+2. Kies **New → Blueprint** en selecteer deze repo. Render leest `render.yaml` automatisch.
+3. Vul de gevraagde instellingen in:
+   - `APP_PASSWORD`: het wachtwoord waarmee jij inlogt. **Verplicht**, anders kan iedereen met de link je portfolio zien.
+   - `ANTHROPIC_API_KEY`: je API key voor foto-herkenning.
+4. Klik op **Apply**. Na een paar minuten krijg je een link zoals `https://tcg-portfolio.onrender.com`.
+5. Open die link op je gsm, log in en kies **Zet op beginscherm** (iPhone) of **App installeren** (Android).
+
+Kosten: het **Starter**-plan (ongeveer $7 per maand) is nodig voor de schijf waarop je portfolio en foto's
+bewaard worden. Op het gratis plan zou je data bij elke herstart verdwijnen.
+Hetzelfde `Dockerfile` werkt ook op Railway of Fly.io. Koppel daar een volume op `/data` en zet `APP_PASSWORD`.
 
 ### Tests
 
@@ -89,6 +105,7 @@ npm test
 | `POKEMONTCG_API_KEY` | – | Optioneel, geeft hogere rate limits bij pokemontcg.io |
 | `PRICE_REFRESH_MINUTES` | `30` | Hoe vaak de app op nieuwe prijzen checkt |
 | `PRICE_FIELD` | `trend` | Welke Cardmarket-prijs als waarde telt |
+| `APP_PASSWORD` | – | Wachtwoord om de app te openen. Verplicht als hij online staat |
 | `PORT` | `3001` | Poort van de server |
 | `DATA_DIR` | `./data` | Map voor je portfolio, foto's en de Cardmarket-cache |
 

@@ -12,12 +12,16 @@ import { searchCards } from './pokemontcg.js';
 import { recognizePhoto, recognitionEnabled } from './recognize.js';
 import { refreshItemPrices, valueItem, computeSummary } from './portfolio.js';
 import { listItems } from './store.js';
+import { mountAuth } from './auth.js';
 
 const PORT = Number(process.env.PORT) || 3001;
 const REFRESH_MIN = Number(process.env.PRICE_REFRESH_MINUTES) || 30;
 
 const app = express();
+app.set('trust proxy', 1); // achter de proxy van een hostingplatform (https, juiste IP)
 app.use(express.json({ limit: '1mb' }));
+app.get('/healthz', (_req, res) => res.send('ok'));
+mountAuth(app);
 
 const upload = multer({
   storage: multer.memoryStorage(),

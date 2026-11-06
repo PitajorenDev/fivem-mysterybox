@@ -141,11 +141,10 @@ export function loadFromCache() {
 export async function refreshCardmarket() {
   state.lastCheck = new Date().toISOString();
   try {
-    const [singles, nonSingles, priceGuide] = await Promise.all([
-      fetchCached('singles', FILES.singles),
-      fetchCached('nonSingles', FILES.nonSingles),
-      fetchCached('priceGuide', FILES.priceGuide),
-    ]);
+    // na elkaar i.p.v. tegelijk: houdt het geheugengebruik laag op kleine servers
+    const singles = await fetchCached('singles', FILES.singles);
+    const nonSingles = await fetchCached('nonSingles', FILES.nonSingles);
+    const priceGuide = await fetchCached('priceGuide', FILES.priceGuide);
     if (singles.changed || nonSingles.changed) {
       state.products.clear();
       ingestProducts(singles.json ?? readCache('singles'), true);
