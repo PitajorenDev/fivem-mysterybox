@@ -62,6 +62,18 @@ npm run build
 npm start                 # serveert app + API op http://localhost:3001
 ```
 
+### Op je gsm installeren
+
+1. Start de app op je pc met `npm run build && npm start`. In de terminal staat dan
+   `Op je gsm (zelfde wifi): http://192.168.x.x:3001`.
+2. Open dat adres op je gsm. Je gsm moet op hetzelfde wifi-netwerk zitten.
+3. Zet de app op je beginscherm:
+   - **iPhone (Safari):** tik op de deelknop ⬆️ en kies **Zet op beginscherm**.
+   - **Android (Chrome):** open het menu ⋮ en kies **App installeren** of **Toevoegen aan startscherm**.
+
+Daarna opent de app met een eigen icoon, op volledig scherm. Je pc moet wel aan staan en de server moet draaien.
+Wil je de app ook buiten je wifi gebruiken, host hem dan online (bv. Render of Railway, met een persistente schijf voor `data/`).
+
 ### Tests
 
 ```bash

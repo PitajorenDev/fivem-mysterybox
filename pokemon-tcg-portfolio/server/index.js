@@ -2,6 +2,7 @@ import 'dotenv/config';
 import fs from 'node:fs';
 import path from 'node:path';
 import crypto from 'node:crypto';
+import os from 'node:os';
 import express from 'express';
 import multer from 'multer';
 
@@ -177,6 +178,8 @@ if (fs.existsSync(dist)) {
 loadFromCache();
 app.listen(PORT, () => {
   console.log(`Pokémon TCG Portfolio draait op http://localhost:${PORT}`);
+  const lan = Object.values(os.networkInterfaces()).flat().filter((n) => n && n.family === 'IPv4' && !n.internal);
+  for (const n of lan) console.log(`  Op je gsm (zelfde wifi): http://${n.address}:${PORT}`);
   if (!recognitionEnabled()) console.log('  ! Geen ANTHROPIC_API_KEY: foto-herkenning staat uit (handmatig zoeken werkt wel).');
 });
 
