@@ -78,13 +78,19 @@ h3 { margin: 2px 0 4px; font-size: 1.05rem; }
 .small { font-size: 0.82rem; }
 .center { text-align: center; }
 
-.app { max-width: 1040px; margin: 0 auto; padding: 0 16px 48px; }
+.app {
+  max-width: 1040px; margin: 0 auto; padding-block: 0 48px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+/* band boven de sticky header op toestellen met een notch */
+body::before { content: ''; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 11; background: var(--bg); }
 
 /* ---------- top bar */
 .topbar {
-  position: sticky; top: 0; z-index: 10;
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 10;
   display: flex; align-items: center; gap: 12px;
-  padding: 12px 0; padding-top: max(12px, env(safe-area-inset-top));
+  padding-block: 12px;
   background: var(--bg);
 }
 .brand { display: flex; align-items: center; gap: 10px; flex: 1; min-width: 0; }
@@ -265,7 +271,10 @@ table.bars { width: 100%; border-collapse: collapse; }
 .price-grid div { background: var(--surface-2); border-radius: 10px; padding: 8px 10px; font-variant-numeric: tabular-nums; }
 .price-grid span { display: block; font-size: 0.75rem; color: var(--muted); }
 .modal-actions { display: flex; justify-content: flex-end; gap: 8px; }
-.modal-actions .danger { margin-right: auto; }
+.modal-actions .danger, .confirm-delete { margin-right: auto; }
+.confirm-delete { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+.link-btn { background: none; border: 0; padding: 0; color: var(--chart); font-weight: 600; cursor: pointer; text-decoration: underline; }
+.demo-banner { background: var(--surface-2); color: var(--text-2); border-radius: 10px; padding: 8px 12px; font-size: 0.85rem; margin-bottom: 12px; }
 .link { color: var(--chart); font-weight: 600; text-decoration: none; display: inline-block; margin: 8px 0; }
 
 /* ---------- login */

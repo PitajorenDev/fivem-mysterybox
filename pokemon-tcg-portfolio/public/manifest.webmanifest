@@ -3,7 +3,7 @@
   "short_name": "TCG Portfolio",
   "description": "Pokémon TCG portfolio met live Cardmarket-prijzen",
   "lang": "nl",
-  "start_url": "/#/portfolio",
+  "start_url": "/#portfolio",
   "scope": "/",
   "display": "standalone",
   "orientation": "portrait",
@@ -15,7 +15,7 @@
     { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
   ],
   "shortcuts": [
-    { "name": "Toevoegen via foto", "url": "/#/toevoegen", "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }] },
-    { "name": "Totaal", "url": "/#/totaal", "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }] }
+    { "name": "Toevoegen via foto", "url": "/#toevoegen", "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }] },
+    { "name": "Totaal", "url": "/#totaal", "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }] }
   ]
 }

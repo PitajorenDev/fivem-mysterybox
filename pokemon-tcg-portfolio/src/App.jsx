@@ -14,7 +14,7 @@ const ROUTES = {
 };
 
 function useHashRoute() {
-  const get = () => (window.location.hash.replace('#/', '') || 'portfolio');
+  const get = () => window.location.hash.replace(/^#\/?/, '') || 'portfolio';
   const [route, setRoute] = useState(get);
   useEffect(() => {
     const on = () => setRoute(get());
@@ -122,7 +122,7 @@ function Main() {
 
       <nav className="tabs">
         {Object.entries(ROUTES).map(([key, r]) => (
-          <a key={key} href={`#/${key}`} className={route === key ? 'active' : ''}>
+          <a key={key} href={`#${key}`} className={route === key ? 'active' : ''}>
             <span aria-hidden="true">{r.icon}</span> {r.label}
           </a>
         ))}
@@ -131,6 +131,11 @@ function Main() {
       {status?.cardmarket?.lastError && !status.cardmarket.prices && (
         <div className="banner warn">
           ⚠️ Cardmarket-prijzen konden niet geladen worden ({status.cardmarket.lastError}). De app probeert het automatisch opnieuw.
+        </div>
+      )}
+      {window.__TCG_DEMO__ && (
+        <div className="demo-banner">🧪 Demo met voorbeelddata: prijzen bewegen gesimuleerd en foto-herkenning kiest een willekeurig product. Wijzigingen blijven alleen in deze browser.{' '}
+          <button className="link-btn" onClick={() => window.__TCG_DEMO_RESET__?.()}>Demo resetten</button>
         </div>
       )}
       {error && <div className="banner warn">⚠️ {error}</div>}

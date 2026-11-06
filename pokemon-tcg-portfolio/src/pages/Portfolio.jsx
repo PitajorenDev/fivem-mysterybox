@@ -35,7 +35,7 @@ export default function Portfolio({ items, summary, onOpen }) {
         <div className="empty-icon">📦</div>
         <h2>Je portfolio is nog leeg</h2>
         <p>Maak een foto van je ETB's, UPC's of kaarten en ze worden automatisch herkend en gewaardeerd via Cardmarket.</p>
-        <a className="btn primary" href="#/toevoegen">📸 Eerste item toevoegen</a>
+        <a className="btn primary" href="#toevoegen">📸 Eerste item toevoegen</a>
       </div>
     );
   }

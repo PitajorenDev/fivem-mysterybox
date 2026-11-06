@@ -18,6 +18,7 @@ export default function ItemModal({ item, onClose }) {
   }));
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState(null);
+  const [confirmDelete, setConfirmDelete] = useState(false);
 
   useEffect(() => {
     const onKey = (e) => e.key === 'Escape' && onClose();
@@ -46,7 +47,6 @@ export default function ItemModal({ item, onClose }) {
   };
 
   const remove = async () => {
-    if (!confirm(`"${item.name}" verwijderen uit je portfolio?`)) return;
     await api.deleteItem(item.id);
     onClose();
   };
@@ -120,7 +120,15 @@ export default function ItemModal({ item, onClose }) {
         </div>
         {err && <div className="banner warn">{err}</div>}
         <div className="modal-actions">
-          <button className="btn danger" onClick={remove}>Verwijderen</button>
+          {confirmDelete ? (
+            <span className="confirm-delete">
+              <span className="muted small">Zeker verwijderen?</span>
+              <button className="btn danger" onClick={remove}>Ja, verwijder</button>
+              <button className="btn ghost" onClick={() => setConfirmDelete(false)}>Nee</button>
+            </span>
+          ) : (
+            <button className="btn danger" onClick={() => setConfirmDelete(true)}>Verwijderen</button>
+          )}
           <button className="btn primary" onClick={save} disabled={busy}>{busy ? 'Opslaan…' : 'Opslaan'}</button>
         </div>
       </div>

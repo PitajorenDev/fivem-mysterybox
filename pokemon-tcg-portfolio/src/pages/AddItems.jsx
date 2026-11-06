@@ -83,7 +83,7 @@ export default function AddItems({ recognition }) {
               <li key={a.id}>{a.quantity}× {a.name} — <strong>{money(a.value)}</strong></li>
             ))}
           </ul>
-          <a href="#/portfolio" className="link">Naar portfolio →</a>
+          <a href="#portfolio" className="link">Naar portfolio →</a>
         </section>
       )}
 
