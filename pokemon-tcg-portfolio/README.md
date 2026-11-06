@@ -17,7 +17,8 @@ product en koppelt het aan de juiste Cardmarket-prijs.
   waardeverloop over tijd, de verdeling per producttype en de grootste stijgers en dalers.
 - **🔴 Live**: de server checkt periodiek op nieuwe Cardmarket-prijzen en pusht wijzigingen via Server-Sent Events
   meteen naar alle open browsers. De waarden bewegen dus mee zonder dat je hoeft te herladen.
-- Werkt op mobiel (camera) en desktop, en heeft een licht en een donker thema.
+- Werkt op mobiel (camera) en desktop.
+- **🌙 Dark mode**: met de knop rechtsboven wissel je tussen automatisch (volgt je toestel), donker en licht. Je keuze wordt onthouden.
 
 ## Waar komen de prijzen vandaan?
 

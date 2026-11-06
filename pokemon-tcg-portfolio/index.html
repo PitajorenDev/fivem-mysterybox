@@ -6,6 +6,12 @@
     <meta name="theme-color" content="#0f1220" />
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='46' fill='%23e3350d'/><rect x='4' y='46' width='92' height='8' fill='%23222'/><path d='M4 50a46 46 0 0 0 92 0z' fill='%23fff'/><circle cx='50' cy='50' r='14' fill='%23fff' stroke='%23222' stroke-width='7'/></svg>" />
     <title>TCG Portfolio</title>
+    <script>
+      try {
+        var t = localStorage.getItem('theme');
+        if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t);
+      } catch (e) {}
+    </script>
   </head>
   <body>
     <div id="root"></div>

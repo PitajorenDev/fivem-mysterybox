@@ -23,7 +23,36 @@ function useHashRoute() {
   return route in ROUTES ? route : 'portfolio';
 }
 
+const THEMES = {
+  auto: { icon: '🌓', label: 'Thema: automatisch (volgt je toestel)' },
+  light: { icon: '☀️', label: 'Thema: licht' },
+  dark: { icon: '🌙', label: 'Thema: donker' },
+};
+const NEXT_THEME = { auto: 'dark', dark: 'light', light: 'auto' };
+
+function useTheme() {
+  const [theme, setTheme] = useState(() => {
+    try {
+      return localStorage.getItem('theme') || 'auto';
+    } catch {
+      return 'auto';
+    }
+  });
+  useEffect(() => {
+    const root = document.documentElement;
+    if (theme === 'auto') root.removeAttribute('data-theme');
+    else root.setAttribute('data-theme', theme);
+    try {
+      localStorage.setItem('theme', theme);
+    } catch {}
+    const meta = document.querySelector('meta[name="theme-color"]');
+    if (meta) meta.content = getComputedStyle(root).getPropertyValue('--bg').trim();
+  }, [theme]);
+  return [theme, () => setTheme((t) => NEXT_THEME[t] ?? 'auto')];
+}
+
 export default function App() {
+  const [theme, cycleTheme] = useTheme();
   const route = useHashRoute();
   const { data, live, updatedAt, error, setData } = usePortfolio();
   const [status, setStatus] = useState(null);
@@ -67,7 +96,10 @@ export default function App() {
             <Change value={summary.change24h ?? summary.change7d} label={summary.change24h != null ? '24u' : '7d'} />
           </div>
         )}
-        <button className="btn ghost" onClick={refresh} disabled={refreshing} title="Prijzen nu verversen">
+        <button className="btn ghost icon" onClick={cycleTheme} title={THEMES[theme].label} aria-label={THEMES[theme].label}>
+          {THEMES[theme].icon}
+        </button>
+        <button className="btn ghost icon" onClick={refresh} disabled={refreshing} title="Prijzen nu verversen">
           {refreshing ? '⏳' : '🔄'}
         </button>
       </header>
